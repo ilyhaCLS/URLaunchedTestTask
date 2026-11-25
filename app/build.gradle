@@ -1,0 +1,76 @@
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.compose)
+}
+
+android {
+    namespace 'com.youarelaunched.challenge'
+    compileSdk gradleDependencies.compileSdk
+
+    defaultConfig {
+        applicationId "com.youarelaunched.challenge"
+        minSdk gradleDependencies.minSdk
+        targetSdk gradleDependencies.targetSdk
+        versionCode 1
+        versionName "1.0"
+
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            applicationIdSuffix ".app"
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            applicationIdSuffix ".development"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    buildFeatures {
+        compose true
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+    implementation libs.androidx.compose.foundation
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+
+    //viewmodel
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    //compose-ui
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.graphics)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.material3)
+
+    debugImplementation(libs.androidx.compose.ui.tooling)
+
+    //json converter
+    implementation(libs.com.google.code.gson)
+    implementation(libs.com.squareup.retrofit2.converter.gson )
+
+    //coil image loader
+    implementation(libs.io.coil.compose)
+    implementation(libs.io.coil.compose.svg)
+    implementation(libs.io.coil.network)
+}
